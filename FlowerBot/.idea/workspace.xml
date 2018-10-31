@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9ef5b0ed-a2a0-4da0-83b5-b95feb1bf021" name="Default Changelist" comment="" />
+    <list default="true" id="92546f86-2281-4421-8c2a-c2237641cb90" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -9,71 +9,42 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FUSProjectUsageTrigger">
-    <session id="1529298366">
+    <session id="-593893118">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.22" value="1" />
-          <entry key="project.open.time.27" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.3" value="1" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="dialog" value="1" />
-          <entry key="intent" value="1" />
-          <entry key="md" value="1" />
           <entry key="py" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Markdown" value="1" />
-          <entry key="PLAIN_TEXT" value="2" />
           <entry key="Python" value="1" />
         </counts>
       </usages-collector>
-      <usages-collector id="statistics.js.language.service.starts" />
-      <usages-collector id="statistics.file.extensions.edit" />
-      <usages-collector id="statistics.vcs.git.usages" />
-      <usages-collector id="statistics.file.types.edit" />
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dialog/en-us/bot.flower.dialog">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vocab/en-us/bot.flower.intent">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor />
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="52" selection-start-column="52" selection-end-column="52" />
+            <state relative-caret-position="42">
+              <caret line="2" selection-start-line="2" selection-end-line="11" selection-end-column="32" />
+              <folding>
+                <element signature="e#442#480#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
@@ -82,7 +53,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-2" />
+    <option name="x" value="958" />
     <option name="y" value="-18" />
     <option name="width" value="964" />
     <option name="height" value="1100" />
@@ -92,32 +63,33 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="flower-bot-skill" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flower-bot-skill" type="462c0819:PsiDirectoryNode" />
+              <item name="FlowerBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FlowerBot" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="flower-bot-skill" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flower-bot-skill" type="462c0819:PsiDirectoryNode" />
+              <item name="FlowerBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FlowerBot" type="462c0819:PsiDirectoryNode" />
               <item name="dialog" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="flower-bot-skill" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flower-bot-skill" type="462c0819:PsiDirectoryNode" />
+              <item name="FlowerBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FlowerBot" type="462c0819:PsiDirectoryNode" />
               <item name="dialog" type="462c0819:PsiDirectoryNode" />
               <item name="en-us" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="flower-bot-skill" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flower-bot-skill" type="462c0819:PsiDirectoryNode" />
+              <item name="FlowerBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FlowerBot" type="462c0819:PsiDirectoryNode" />
               <item name="vocab" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="flower-bot-skill" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flower-bot-skill" type="462c0819:PsiDirectoryNode" />
+              <item name="FlowerBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FlowerBot" type="462c0819:PsiDirectoryNode" />
               <item name="vocab" type="462c0819:PsiDirectoryNode" />
               <item name="en-us" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -125,12 +97,11 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Projects/FlowerBot" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -151,18 +122,18 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="9ef5b0ed-a2a0-4da0-83b5-b95feb1bf021" name="Default Changelist" comment="" />
-      <created>1540549374653</created>
+      <changelist id="92546f86-2281-4421-8c2a-c2237641cb90" name="Default Changelist" comment="" />
+      <created>1540470817921</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1540549374653</updated>
+      <updated>1540470817921</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2" y="-18" width="964" height="1100" extended-state="0" />
+    <frame x="-2" y="-20" width="1924" height="1102" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.4091904" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.122732125" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -192,24 +163,13 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/dialog/en-us/bot.flower.dialog">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vocab/en-us/bot.flower.intent">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="52" selection-start-column="52" selection-end-column="52" />
+        <state relative-caret-position="42">
+          <caret line="2" selection-start-line="2" selection-end-line="11" selection-end-column="32" />
+          <folding>
+            <element signature="e#442#480#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
