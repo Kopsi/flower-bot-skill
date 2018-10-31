@@ -2,18 +2,24 @@ To submit your skill, replace this file with text from
 https://rawgit.com/MycroftAI/mycroft-skills/master/meta_editor.html
 
 
-## YOUR SKILL NAME
-One line description of the skill
+## Plant Bot
+Plant bot communication protocoll
 
 ## Description 
-A more verbose description, including any extra instructions or
-information that didn't fit in the one line.
+The Plant Bot skill transforms a Picroft and a plant into a "sentient" plant with aid of an Arduino, moisture,
+light, and temperature sensors. The Plant Bot responds to questions about generall well being and
+wether it needs anything. Furthermore it can act on it's own to remind the user, if anything is
+critically required for the plant to survive.
 
 ## Examples 
-* "Hello world"
-* "Greetings planet earth"
-* "Count up"
-* "Count down"
+* "Do you need anything?"
+* "Do you have enough water?"
+* "How are you?"
+* "Are you edible?"
+
+## Planned Features
+TBD
 
 ## Credits 
-Your name
+David Fraas
+Alexander Stahl
