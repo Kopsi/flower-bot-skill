@@ -12,6 +12,7 @@
     <session id="1529298366">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.22" value="1" />
           <entry key="project.open.time.27" value="1" />
@@ -41,7 +42,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dialog/en-us/bot.flower.dialog">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
@@ -51,7 +52,7 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
@@ -84,8 +85,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-2" />
     <option name="y" value="-18" />
-    <option name="width" value="964" />
-    <option name="height" value="1100" />
+    <option name="width" value="1540" />
+    <option name="height" value="1748" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -160,10 +161,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2" y="-18" width="964" height="1100" extended-state="0" />
+    <frame x="-2" y="-18" width="1540" height="1748" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.4091904" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25100672" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -193,14 +194,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -213,6 +206,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dialog/en-us/bot.flower.dialog">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>
