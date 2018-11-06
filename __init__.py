@@ -26,21 +26,21 @@ class FlowerBotSkill(MycroftSkill):
         # Initialize working variables used within the skill.
         sensorData = getCurrentSensorData
         self.count = 0
-        self.water = sensorData[1]
-        self.light = sensorData[2]
-        self.airPressure = sensorData[3]
-        self.airMoisture = sensorData[4]
-        self.temperature = sensorData[5]
+        self.water = sensorData[0]
+        self.light = sensorData[1]
+        self.airPressure = sensorData[2]
+        self.airMoisture = sensorData[3]
+        self.temperature = sensorData[4]
         self.waterTime = 0
 
         @intent_handler(IntentBuilder("").require("Count").require("Dir"))
 
-    def handle_count_intent(self, message):
-        if message.data["Dir"] == "up":
-            self.count += 1
-        else:  # assume "down"
-            self.count -= 1
-        self.speak_dialog("count.is.now", data={"count": self.count})
+    # def handle_count_intent(self, message):
+    #     if message.data["Dir"] == "up":
+    #         self.count += 1
+    #     else:  # assume "down"
+    #         self.count -= 1
+    #     self.speak_dialog("count.is.now", data={"count": self.count})
 
         @intent_handler(IntentBuilder("").require("Flower"))
         def handle_flower_intent(self, message):
@@ -55,14 +55,14 @@ class FlowerBotSkill(MycroftSkill):
             else:
                 self.speak_dialog("feeling.good")
 
-    # @intent_handler(IntentBuilder("").require("Water.Check"))
-    # def handle_water_check_intent(self, message):
-    #     if self.waterTime == 0:
-    #         self.speak_dialog("last.time.watered.today")
-    #     elif self.waterTime == 1:
-    #         self.speak_dialog("last.time.watered.yesterday")
-    #     elif self.waterTime > 1:
-    #         self.speak_dialog("last.time.watered", data ={"waterTime":self.waterTime},"time.ago")
+    @intent_handler(IntentBuilder("").require("Water.Check"))
+    def handle_water_check_intent(self, message):
+        if self.waterTime == 0:
+            self.speak_dialog("last.time.watered.today")
+        elif self.waterTime == 1:
+            self.speak_dialog("last.time.watered.yesterday")
+        elif self.waterTime > 1:
+            self.speak_dialog("last.time.watered", data ={"waterTime":self.waterTime})#,"time.ago")
 
     @intent_handler(IntentBuilder("").require("Need.Water")
     def handle_need_water_intent(self, message)
