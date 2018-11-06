@@ -70,3 +70,20 @@ def getSensorData(time):
     sensordata = curs.fetchone()
     return sensordata
 
+
+def getLastWatered():
+    select_stmt = "SELECT last_watered FROM history ORDER BY date DESC"
+    with db:
+        curs.execute(select_stmt)
+
+    last_watered = curs.fetchone()
+
+    now = datetime.datetime.now()
+
+    days = now-last_watered[0]
+
+    print(now)
+    print(last_watered[0])
+    print(days.days)
+
+    return days.days
