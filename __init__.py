@@ -11,6 +11,7 @@ from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
 from arduinodata import getCurrentSensorData
+from arduinodata import getLastWatered
 
 
 # Each skill is contained within its own class, which inherits base methods
@@ -31,7 +32,7 @@ class FlowerBotSkill(MycroftSkill):
         self.airPressure = sensorData[2]
         self.airMoisture = sensorData[3]
         self.temperature = sensorData[4]
-        self.waterTime = 0
+        self.waterTime = getLastWatered
 
         @intent_handler(IntentBuilder("").require("Count").require("Dir"))
 
