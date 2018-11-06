@@ -64,9 +64,9 @@ class FlowerBotSkill(MycroftSkill):
         elif self.waterTime > 1:
             self.speak_dialog("last.time.watered", data ={"waterTime":self.waterTime})#,"time.ago")
 
-    @intent_handler(IntentBuilder("").require("Need.Water")
-    def handle_need_water_intent(self, message)
-        self.speak_dialog("need.water")
+    # @intent_handler(IntentBuilder("").require("Need.Water")
+    # def handle_need_water_intent(self, message)
+    #     self.speak_dialog("need.water")
 
     @intent_handler(IntentBuilder("").require("Edible"))
     def handle_edible_intent(self, message):
