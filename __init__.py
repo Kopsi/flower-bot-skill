@@ -10,7 +10,7 @@
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
-from arduinoData import getCurrentSensorData
+from arduinodata import getCurrentSensorData
 
 
 # Each skill is contained within its own class, which inherits base methods
