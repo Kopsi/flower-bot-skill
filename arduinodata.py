@@ -82,8 +82,7 @@ def getLastWatered():
 
     days = now-last_watered[0]
 
-    print(now)
-    print(last_watered[0])
-    print(days.days)
-
     return days.days
+
+
+print(getCurrentSensorData())

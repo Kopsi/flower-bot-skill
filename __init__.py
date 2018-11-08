@@ -10,7 +10,20 @@
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
-from arduinoData import getCurrentSensorData
+
+import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+handler = logging.FileHandler('/opt/mycroft/skills/flower-bot-skill.kopsi/customskill.log')
+handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+
+import importlib.util
+spec = importlib.util.spec_from_file_location("", "/opt/mycroft/skills/flower-bot-skill.kopsi/arduinodata.py")
+arduinodata = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(arduinodata)
 
 
 # Each skill is contained within its own class, which inherits base methods
@@ -19,54 +32,49 @@ from arduinoData import getCurrentSensorData
 # TODO: Change "Template" to a unique name for your skill
 class FlowerBotSkill(MycroftSkill):
 
+    water = 0
+    light = 0
+    airPressure = 0
+    airMoisture = 0
+    temperature = 0
+    waterTime = 0
+
     # The constructor of the skill, which calls MycroftSkill's constructor
     def __init__(self):
         super(FlowerBotSkill, self).__init__(name="FlowerBotSkill")
-
         # Initialize working variables used within the skill.
-        sensorData = getCurrentSensorData
-        self.count = 0
-        self.water = sensorData[0]
-        self.light = sensorData[1]
-        self.airPressure = sensorData[2]
-        self.airMoisture = sensorData[3]
-        self.temperature = sensorData[4]
-        self.waterTime = 0
+        sensorData = arduinodata.getCurrentSensorData()
 
-        @intent_handler(IntentBuilder("").require("Count").require("Dir"))
 
-    # def handle_count_intent(self, message):
-    #     if message.data["Dir"] == "up":
-    #         self.count += 1
-    #     else:  # assume "down"
-    #         self.count -= 1
-    #     self.speak_dialog("count.is.now", data={"count": self.count})
-
-        @intent_handler(IntentBuilder("").require("Flower"))
-        def handle_flower_intent(self, message):
-            if self.water < 350:
-                self.speak_dialog("need.water")
-            elif self.water > 900:
-                self.speak_dialog("too.much.water")
-            elif self.light < 50:
-                self.speak_dialog("need.light")
-            elif self.light > 400:
-                self.speak_dialog("too.much.light")
-            else:
-                self.speak_dialog("feeling.good")
+    @intent_handler(IntentBuilder("").require("Flower"))
+    def handle_flower_intent(self, message):
+        updateData()
+        logger.info(self.water)
+        if self.water < 400:
+            self.speak_dialog("need.water")
+        elif self.water > 800:
+            self.speak_dialog("too.much.water")
+        elif self.light < 50:
+            self.speak_dialog("need.light")
+        elif self.light > 400:
+            self.speak_dialog("too.much.light")
+        else:
+            self.speak_dialog("feeling.good")
 
     @intent_handler(IntentBuilder("").require("Water.Check"))
     def handle_water_check_intent(self, message):
-        if self.waterTime == 0:
-            self.speak_dialog("last.time.watered.today")
-        elif self.waterTime == 1:
-            self.speak_dialog("last.time.watered.yesterday")
-        elif self.waterTime > 1:
-            self.speak_dialog("last.time.watered", data ={"waterTime":self.waterTime})#,"time.ago")
+        updateData()
+        logger.info(self.waterTime)
+        self.speak_dialog("last.time.watered", data={"waterTime": self.waterTime})  #,"time.ago")        # if self.waterTime == 0:
+        #     self.speak_dialog("last.time.watered.today")
+        # elif self.waterTime == 1:
+        #     self.speak_dialog("last.time.watered.yesterday")
+        # elif self.waterTime > 1:
+        #     self.speak_dialog("last.time.watered", data={"waterTime":self.waterTime})#,"time.ago")
 
-    # @intent_handler(IntentBuilder("").require("Need.Water")
-    # def handle_need_water_intent(self, message)
-    #     self.speak_dialog("need.water")
+    @intent_handler(IntentBuilder("").require("Need.Water"))
+    def handle_need_water_intent(self, message):
+        self.speak_dialog("need.water")
 
     @intent_handler(IntentBuilder("").require("Edible"))
     def handle_edible_intent(self, message):
@@ -86,3 +94,8 @@ class FlowerBotSkill(MycroftSkill):
 # Note that it's outside the class itself.
 def create_skill():
     return FlowerBotSkill()
+
+def updateData():
+    sensorData = arduinodata.getCurrentSensorData()
+    FlowerBotSkill.water = sensorData[0]
+    FlowerBotSkill.light = sensorData[1]
