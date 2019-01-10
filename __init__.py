@@ -76,6 +76,10 @@ class FlowerBotSkill(MycroftSkill):
     def handle_need_water_intent(self, message):
         self.speak_dialog("need.water")
 
+    @intent_handler(IntentBuilder("").require("Need.Light"))
+    def handle_need_water_intent(self, message):
+        self.speak_dialog("need.light")
+
     @intent_handler(IntentBuilder("").require("Edible"))
     def handle_edible_intent(self, message):
         self.speak_dialog("edible")
