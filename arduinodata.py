@@ -3,7 +3,7 @@ import os,pty,serial,pymysql,time, datetime
 db = pymysql.connect("localhost", "monitor", "password", "flowerbot")
 curs=db.cursor()
 
-z1baudrate = 9600
+z1baudrate = 57600
 z1port = '/dev/ttyACM0'  # set the correct port before run it
 
 z1serial = serial.Serial(port=z1port, baudrate=z1baudrate)
