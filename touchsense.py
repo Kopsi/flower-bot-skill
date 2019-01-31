@@ -85,7 +85,7 @@ while True:
 
                         if(valDiff >= 15):
                             print("BERÜHRT")
-                            z1serial.write(b'aaaa\n')
+                            turnServo()
                             #os.system("aplay /home/pi/mycroft-core/mycroft/res/snd/start_listening.wav")
                             #os.system("aplay /home/osboxes/mycroft-core/mycroft/res/snd/start_listening.wav")
                             ws = create_connection(uri)
@@ -100,6 +100,8 @@ while True:
                 else:
                     print(0)
 
-
+    #calling the servo
+    def turnServo():
+        z1serial.write(b'aaaa\n')
     z1serial.flushInput()
     time.sleep(60.0 / 1000.0)

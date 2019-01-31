@@ -26,10 +26,7 @@ arduinodata = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(arduinodata)
 
 
-# Each skill is contained within its own class, which inherits base methods
-# from the MycroftSkill class.  You extend this class as shown below.
 
-# TODO: Change "Template" to a unique name for your skill
 class FlowerBotSkill(MycroftSkill):
 
     water = 0
@@ -45,7 +42,7 @@ class FlowerBotSkill(MycroftSkill):
         # Initialize working variables used within the skill.
         sensorData = arduinodata.getCurrentSensorData()
 
-
+#TODO: values need to be adjusted
     @intent_handler(IntentBuilder("").require("Flower"))
     def handle_flower_intent(self, message):
         updateData()
