@@ -36,6 +36,7 @@ watering = 0
 moist = 0
 prevMoist1 = 0
 prevMoist2 = 0
+waterDecay = 0
 lux = 0
 pressure = 0
 hum = 0
@@ -89,20 +90,49 @@ while True:
             prevMoist2 = prevMoist1
             prevMoist1 = moist
 
-            moist = float(moistString)
-            lux = float(luxString)
-            pressure = float(pressureString)
-            hum = float(humString)
-            temp = float(tempString)
+            try:
+                moist = float(moistString)
+            except ValueError as er:
+                print("moisture not readable")
+                moist = 0
 
-            print(moist-prevMoist1)
+            try:
+                lux = float(luxString)
+            except ValueError as er:
+                print("lux not readable")
+                lux = 0
+
+            try:
+                pressure = float(pressureString)
+            except ValueError as er:
+                print("lux not readable")
+                pressure = 0
+
+            try:
+                hum = float(humString)
+            except ValueError as er:
+                print("lux not readable")
+                hum = 0
+
+            try:
+                temp = float(tempString)
+            except ValueError as er:
+                print("lux not readable")
+                temp = 0
 
             if (moist-prevMoist2 >= 7 and moist-prevMoist2 <= 300 and watering == 0):
                 watering = 1
                 with db:
                     curs.execute(insert_stmt, prevMoist2)
                 print("WATERING")
-                time.sleep(5)
+
+            if(moist-prevMoist2 <= 5 and watering == 1):
+                waterDecay = waterDecay +1;
+                if(waterDecay >= 50):
+                    watering = 0
+                    print("WATERING OVER")
+            else:
+                waterDecay = 0
 
             if len(pieces) > 5 and watering == 0:
                 touchPieces = pieces[5].decode().split("_")
@@ -117,10 +147,11 @@ while True:
                         #print(averageValue)
                     else:
                         count = count +1
-                        totalValue= totalValue +touchValue
+                        totalValue= totalValue+touchValue
 
-                    if(averageValue-touchValue >= 3):
+                    if(averageValue-touchValue >= 5):
                         valDiff = valDiff + averageValue-touchValue;
+                        print(valDiff)
 
                         if(valDiff >= 30 and moist-prevMoist1 <= 5):
                             print("BERÜHRT")
