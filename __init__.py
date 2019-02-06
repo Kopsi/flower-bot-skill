@@ -49,11 +49,11 @@ class FlowerBotSkill(MycroftSkill):
         logger.info(self.water)
         if self.water < 400:
             self.speak_dialog("need.water")
-        elif self.water > 800:
+        if self.water > 800:
             self.speak_dialog("too.much.water")
-        elif self.light < 50:
+        if self.light < 50:
             self.speak_dialog("need.light")
-        elif self.light > 400:
+        if self.light > 400:
             self.speak_dialog("too.much.light")
         else:
             self.speak_dialog("feeling.good")
