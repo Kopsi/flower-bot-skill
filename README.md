@@ -22,7 +22,7 @@ TBD
 
 
 ## Arduino and Sensors
-![Image](github.com/Kopsi/flower-bot-skill/Images/PlantBot_Arduino_bb.svg)
+![Image](github.com/Kopsi/flower-bot-skill/blob/develop2/Images/PlantBot_Arduino_bb.svg)
 
 ## Credits 
 David Fraas
