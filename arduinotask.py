@@ -1,11 +1,11 @@
 import datetime,pymysql
 
-db=pymysql.connect("localhost", "monitor", "password", "flowerbot")
+db=pymysql.connect("localhost", "flowerbot", "mycroft", "sensordata")
 curs=db.cursor()
 
 from arduinodata import getCurrentSensorData
 
-sensordata =getCurrentSensorData()
+sensordata = getCurrentSensorData()
 
 select_stmt = "SELECT moisture,last_watered FROM history ORDER BY date DESC"
 

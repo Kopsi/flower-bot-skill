@@ -1,6 +1,6 @@
 import os,pty,serial,pymysql,time, datetime
 
-db = pymysql.connect("localhost", "monitor", "password", "flowerbot")
+db = pymysql.connect("localhost", "flowerbot", "mycroft", "sensordata")
 curs=db.cursor()
 
 z1baudrate = 57600
@@ -14,11 +14,19 @@ def getCurrentSensorData():
     if z1serial.is_open:
         while True:
             size = z1serial.inWaiting()
-            if size:
-                data = z1serial.readline(size)
+            if (size):
+                try:
+                    data = z1serial.readline()
+                except SerialException as e:
+                    print("serial exception")
 
-                if data.decode().startswith(" moist_"):
+                dataString = ""
+                try:
+                    dataString = data.decode();
+                except UnicodeDecodeError as e:
+                    print("decode error")
 
+                if dataString.startswith(" moist_"):
                     pieces = data.split()
                     if len(pieces) > 0:
                         moistPieces = pieces[0].decode().split("_")
@@ -45,18 +53,44 @@ def getCurrentSensorData():
                         if len(tempPieces) > 0:
                             tempString = tempPieces[1]
 
-                    moist = float(moistString)
-                    lux = float(luxString)
-                    pressure = float(pressureString)
-                    hum = float(humString)
-                    temp = float(tempString)
+                    try:
+                        moist = float(moistString)
+                    except ValueError as er:
+                        print("moisture not readable")
+                        moist = 0
+
+                    try:
+                        lux = float(luxString)
+                    except ValueError as er:
+                        print("lux not readable")
+                        lux = 0
+
+                    try:
+                        pressure = float(pressureString)
+                    except ValueError as er:
+                        print("lux not readable")
+                        pressure = 0
+
+                    try:
+                        hum = float(humString)
+                    except ValueError as er:
+                        print("lux not readable")
+                        hum = 0
+
+                    try:
+                        temp = float(tempString)
+                    except ValueError as er:
+                        print("lux not readable")
+                        temp = 0
+
                     return (moist, lux, pressure, hum, temp)
 
             else:
                 errorcount+=1
-                if errorcount > 5:
-                    return "no data"
-            time.sleep(1)
+                if errorcount > 100:
+                   return "no data"
+            z1serial.flushInput()
+            time.sleep(60.0/1000.0)
     else:
         return "serial not open"
 
@@ -72,7 +106,7 @@ def getSensorData(time):
 
 
 def getLastWatered():
-    select_stmt = "SELECT last_watered FROM history ORDER BY date DESC"
+    select_stmt = "SELECT date FROM watering ORDER BY date DESC"
     with db:
         curs.execute(select_stmt)
 
