@@ -21,7 +21,7 @@ critically required for the plant to survive.
 TBD
 
 ## Arduino and Sensors
-![Image](github.com/Kopsi/flower-bot-skill/Images/PlantBot_Arduino_bb.svg)
+![Image](https://github.com/Kopsi/flower-bot-skill/blob/master/Images/PlantBot_Arduino_bb.png)
 
 ## Credits 
 David Fraas
