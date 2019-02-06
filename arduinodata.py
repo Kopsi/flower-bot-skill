@@ -118,5 +118,3 @@ def getLastWatered():
 
     return days.days
 
-
-print(getCurrentSensorData())
