@@ -20,6 +20,9 @@ critically required for the plant to survive.
 ## Planned Features
 TBD
 
+## Arduino and Sensors
+![Image](github.com/Kopsi/flower-bot-skill/Images/PlantBot_Arduino_bb.svg)
+
 ## Credits 
 David Fraas
 Alexander Stahl
