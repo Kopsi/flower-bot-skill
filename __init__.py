@@ -45,6 +45,9 @@ class FlowerBotSkill(MycroftSkill):
 #TODO: values need to be adjusted
     @intent_handler(IntentBuilder("").require("Flower"))
     def handle_flower_intent(self, message):
+
+        z1serial = serial.Serial('/dev/ttyACM0', 57600)
+
         updateData()
         logger.info(self.water)
         if self.water < 400:
@@ -56,7 +59,12 @@ class FlowerBotSkill(MycroftSkill):
         if self.light > 400:
             self.speak_dialog("too.much.light")
         else:
+            try:
+                z1serial.write(b'ggg\n')
+            except Exception as e:
+                LOG.info(str(e))
             self.speak_dialog("feeling.good")
+
 
     @intent_handler(IntentBuilder("").require("Water.Check"))
     def handle_water_check_intent(self, message):

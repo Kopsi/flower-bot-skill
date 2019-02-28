@@ -42,13 +42,7 @@ from mycroft.util import (
 )
 from mycroft.util.log import LOG
 
-#custom scripts
-import importlib.util
-spec = importlib.util.spec_from_file_location("", "/opt/mycroft/skills/flower-bot-skill.kopsi/touchsense.py")
-touchsense = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(touchsense)
-#end of custom import
-
+import serial
 
 class MutableStream:
     def __init__(self, wrapped_stream, format, muted=False):
@@ -154,6 +148,7 @@ def get_silence(num_bytes):
 
 
 class ResponsiveRecognizer(speech_recognition.Recognizer):
+
     # Padding of silence when feeding to pocketsphinx
     SILENCE_SEC = 0.01
 
@@ -493,14 +488,18 @@ class ResponsiveRecognizer(speech_recognition.Recognizer):
         # If enabled, play a wave file with a short sound to audibly
         # indicate recording has begun.
         if self.config.get('confirm_listening'):
-            # adapted for plant movement!
-            touchsense.turnServo()
-            #
+            z1serial = serial.Serial('/dev/ttyACM0', 57600)
+            try:
+                LOG.info("sending signal")
+                z1serial.write(b'aaaa\n')
+                LOG.info("signal sent")
+            except Exception as e:
+                LOG.info(str(e))
+
             #file = resolve_resource_file(
             #    self.config.get('sounds').get('start_listening'))
             #if file:
             #    play_wav(file)
-            # end of custom changes
 
         frame_data = self._record_phrase(source, sec_per_buffer)
         audio_data = self._create_audio_data(frame_data, source)
@@ -523,4 +522,4 @@ class ResponsiveRecognizer(speech_recognition.Recognizer):
             target_energy = energy * self.energy_ratio
             self.energy_threshold = (
                 self.energy_threshold * damping +
-target_energy * (1 - damping))
+                target_energy * (1 - damping))

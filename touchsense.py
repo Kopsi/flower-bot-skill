@@ -127,7 +127,7 @@ while True:
                 print("WATERING")
 
             if(moist-prevMoist2 <= 5 and watering == 1):
-                waterDecay = waterDecay +1;
+                waterDecay = waterDecay +1
                 if(waterDecay >= 50):
                     watering = 0
                     print("WATERING OVER")
@@ -141,26 +141,26 @@ while True:
                     touchValue = float(touchValueString)
                     if count >= 100:
                         averageValue = totalValue/100
-                        totalValue = 0;
-                        count = 0;
+                        totalValue = 0
+                        count = 0
                         #print("  avg:")
                         #print(averageValue)
                     else:
                         count = count +1
                         totalValue= totalValue+touchValue
 
-                    if(averageValue-touchValue >= 5):
-                        valDiff = valDiff + averageValue-touchValue;
+                    if(averageValue-touchValue >= 3):
+                        valDiff = valDiff + averageValue-touchValue
                         print(valDiff)
 
-                        if(valDiff >= 30 and moist-prevMoist1 <= 5):
+                        if(valDiff >= 14 and moist-prevMoist1 <= 5):
                             print("BERÜHRT")
                             #turnServo()
-                            os.system("aplay /home/pi/mycroft-core/mycroft/res/snd/start_listening.wav")
+                            #os.system("aplay /home/pi/mycroft-core/mycroft/res/snd/start_listening.wav")
                             #os.system("aplay /home/osboxes/mycroft-core/mycroft/res/snd/start_listening.wav")
-                            #ws = create_connection(uri)
-                            #result = ws.send(message)
-                            #ws.close()
+                            ws = create_connection(uri)
+                            result = ws.send(message)
+                            ws.close()
                             totalValue=totalValue+valDiff
                             valDiff= 0
 
