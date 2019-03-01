@@ -25,7 +25,7 @@ spec = importlib.util.spec_from_file_location("", "/opt/mycroft/skills/flower-bo
 arduinodata = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(arduinodata)
 
-
+import serial
 
 class FlowerBotSkill(MycroftSkill):
 
@@ -51,12 +51,28 @@ class FlowerBotSkill(MycroftSkill):
         updateData()
         logger.info(self.water)
         if self.water < 400:
+            try:
+                z1serial.write(b'bbb\n')
+            except Exception as e:
+                LOG.info(str(e))
             self.speak_dialog("need.water")
         if self.water > 800:
+            try:
+                z1serial.write(b'bbb\n')
+            except Exception as e:
+                LOG.info(str(e))
             self.speak_dialog("too.much.water")
         if self.light < 50:
+            try:
+                z1serial.write(b'bbb\n')
+            except Exception as e:
+                LOG.info(str(e))
             self.speak_dialog("need.light")
         if self.light > 400:
+            try:
+                z1serial.write(b'bbb\n')
+            except Exception as e:
+                LOG.info(str(e))
             self.speak_dialog("too.much.light")
         else:
             try:
