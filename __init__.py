@@ -35,6 +35,7 @@ class FlowerBotSkill(MycroftSkill):
     airMoisture = 0
     temperature = 0
     waterTime = 0
+    comfortCounter = 0
 
     # The constructor of the skill, which calls MycroftSkill's constructor
     def __init__(self):
@@ -49,14 +50,31 @@ class FlowerBotSkill(MycroftSkill):
         logger.info(self.water)
         if self.water < 400:
             self.speak_dialog("need.water")
+            self.comfortCounter+=1
         if self.water > 800:
             self.speak_dialog("too.much.water")
+            self.comfortCounter+=1
         if self.light < 50:
             self.speak_dialog("need.light")
+            self.comfortCounter += 1
         if self.light > 400:
             self.speak_dialog("too.much.light")
+            self.comfortCounter += 1
+        if self.temperature > 30:
+            self.speak_dialog("too.hot")
+            self.comfortCounter += 1
+        if self.temperature < 10:
+            self.speak_dialog("too.cold")
+            self.comfortCounter += 1
         else:
             self.speak_dialog("feeling.good")
+        if self.comfortCounter>2;
+            #TODO lights red
+        elif self.comfortCounter>1;
+            #TODO lights yelloww
+        else:
+            #TODO lights green
+        self.comfortCounter=0
 
     @intent_handler(IntentBuilder("").require("Water.Check"))
     def handle_water_check_intent(self, message):
@@ -80,6 +98,10 @@ class FlowerBotSkill(MycroftSkill):
     @intent_handler(IntentBuilder("").require("Edible"))
     def handle_edible_intent(self, message):
         self.speak_dialog("edible")
+
+    @intent_handler(IntentBuilder("").require("Temperature"))
+    def handle_temperature_intent(self, message):
+        self.speak_dialog("temperature", data={"temp": self.temperature})
 
     # The "stop" method defines what Mycroft does when told to stop during
     # the skill's execution. In this case, since the skill's functionality
