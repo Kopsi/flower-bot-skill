@@ -50,36 +50,44 @@ class FlowerBotSkill(MycroftSkill):
 
         updateData()
         logger.info(self.water)
+
         if self.water < 400:
-            try:
-                z1serial.write(b'bbb\n')
-            except Exception as e:
-                LOG.info(str(e))
             self.speak_dialog("need.water")
+            self.comfortCounter += 1
         if self.water > 800:
-            try:
-                z1serial.write(b'bbb\n')
-            except Exception as e:
-                LOG.info(str(e))
             self.speak_dialog("too.much.water")
+            self.comfortCounter += 1
         if self.light < 50:
-            try:
-                z1serial.write(b'bbb\n')
-            except Exception as e:
-                LOG.info(str(e))
             self.speak_dialog("need.light")
+            self.comfortCounter += 1
         if self.light > 400:
+            self.speak_dialog("too.much.light")
+            self.comfortCounter += 1
+        if self.temperature > 30:
+            self.speak_dialog("too.hot")
+            self.comfortCounter += 1
+        if self.temperature < 10:
+            self.speak_dialog("too.cold")
+            self.comfortCounter += 1
+        else:
+            self.speak_dialog("feeling.good")
+        if self.comfortCounter > 2:
+            try:
+                z1serial.write(b'rrr\n')
+            except Exception as e:
+                LOG.info(str(e))
+        elif self.comfortCounter > 1:
             try:
                 z1serial.write(b'bbb\n')
             except Exception as e:
                 LOG.info(str(e))
-            self.speak_dialog("too.much.light")
         else:
             try:
                 z1serial.write(b'ggg\n')
             except Exception as e:
                 LOG.info(str(e))
-            self.speak_dialog("feeling.good")
+        self.comfortCounter = 0
+
 
 
     @intent_handler(IntentBuilder("").require("Water.Check"))
