@@ -42,6 +42,8 @@ pressure = 0
 hum = 0
 temp = 0
 
+os.system("amixer set Master 75%")
+
 #calling the servo
 def turnServo():
     z1serial.write(b'aaaa\n')
@@ -105,19 +107,19 @@ while True:
             try:
                 pressure = float(pressureString)
             except ValueError as er:
-                print("lux not readable")
+                print("pressure not readable")
                 pressure = 0
 
             try:
                 hum = float(humString)
             except ValueError as er:
-                print("lux not readable")
+                print("humidity not readable")
                 hum = 0
 
             try:
                 temp = float(tempString)
             except ValueError as er:
-                print("lux not readable")
+                print("temperature not readable")
                 temp = 0
 
             if (moist-prevMoist2 >= 7 and moist-prevMoist2 <= 300 and watering == 0):
@@ -128,7 +130,8 @@ while True:
 
             if(moist-prevMoist2 <= 5 and watering == 1):
                 waterDecay = waterDecay +1
-                if(waterDecay >= 50):
+                time.sleep(2)
+                if(waterDecay >= 100):
                     watering = 0
                     print("WATERING OVER")
             else:
