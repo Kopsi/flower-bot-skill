@@ -35,6 +35,7 @@ class FlowerBotSkill(MycroftSkill):
     airMoisture = 0
     temperature = 0
     waterTime = 0
+    comfortCounter = 0
 
     # The constructor of the skill, which calls MycroftSkill's constructor
     def __init__(self):
