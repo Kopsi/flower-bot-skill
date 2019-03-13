@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from websocket import create_connection
 uri = 'ws://localhost:8181/core'
 #ws = create_connection(uri)
