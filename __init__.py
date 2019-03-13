@@ -71,12 +71,12 @@ class FlowerBotSkill(MycroftSkill):
             self.speak_dialog("too.cold")
             self.comfortCounter += 1
 
-        if self.comfortCounter > 2:
+        if self.comfortCounter >= 2:
             try:
                 z1serial.write(b'rrr\n')
             except Exception as e:
                 LOG.info(str(e))
-        elif self.comfortCounter > 1:
+        elif self.comfortCounter >= 1:
             try:
                 z1serial.write(b'bbb\n')
             except Exception as e:
