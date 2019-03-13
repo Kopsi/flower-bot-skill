@@ -134,3 +134,6 @@ def updateData():
     sensorData = arduinodata.getCurrentSensorData()
     FlowerBotSkill.water = sensorData[0]
     FlowerBotSkill.light = sensorData[1]
+    FlowerBotSkill.airPressure = sensorData[2]
+    FlowerBotSkill.airMoisture = sensorData[3]
+    FlowerBotSkill.temperature = sensorData[4]
