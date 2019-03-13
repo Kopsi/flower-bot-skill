@@ -88,6 +88,7 @@ class FlowerBotSkill(MycroftSkill):
             except Exception as e:
                 LOG.info(str(e))
         LOG.info("COMFORTCOUNTER = " + str(self.comfortCounter))
+        LOG.info("water: " + str(self.water) + " lux: " + str(self.light) + " temperature: " + str(self.temperature))
         self.comfortCounter = 0
 
 

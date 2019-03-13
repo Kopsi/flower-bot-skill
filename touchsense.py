@@ -66,7 +66,7 @@ while True:
             print("datastring incomplete")
 
         if dataString.startswith(" moist_"):
-            print(dataString)
+            #print(dataString)
             pieces = data.split()
             if len(pieces) > 0:
                 moistPieces = pieces[0].decode().split("_")
