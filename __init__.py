@@ -87,6 +87,7 @@ class FlowerBotSkill(MycroftSkill):
                 z1serial.write(b'ggg\n')
             except Exception as e:
                 LOG.info(str(e))
+        LOG.info("COMFORTCOUNTER = " + str(comfortCounter))
         self.comfortCounter = 0
 
 
