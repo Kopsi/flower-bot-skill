@@ -13,6 +13,7 @@ message = '{"type": "mycroft.mic.listen", "data": {}}'
 #ws.close()
 
 import serial,time,os,pymysql
+from serial import SerialException
 
 db = pymysql.connect("localhost", "flowerbot", "mycroft", "sensordata")
 curs=db.cursor()

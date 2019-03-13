@@ -1,4 +1,5 @@
 import os,pty,serial,pymysql,time, datetime
+from serial import SerialException
 
 db = pymysql.connect("localhost", "flowerbot", "mycroft", "sensordata")
 curs=db.cursor()
