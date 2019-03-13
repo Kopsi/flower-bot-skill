@@ -71,27 +71,43 @@ while True:
             if len(pieces) > 0:
                 moistPieces = pieces[0].decode().split("_")
                 if len(moistPieces) > 0:
-                    moistString = moistPieces[1]
+                    try:
+                        moistString = moistPieces[1]
+                    except IndexError as er:
+                        print("moisture not readable")
+
 
             if len(pieces) > 1:
                 luxPieces = pieces[1].decode().split("_")
                 if len(luxPieces) > 0:
-                    luxString = luxPieces[1]
+                    try:
+                        luxString = luxPieces[1]
+                    except IndexError as er:
+                        print("lux not readable")
 
             if len(pieces) > 2:
                 pressurePieces = pieces[2].decode().split("_")
                 if len(pressurePieces) > 0:
-                    pressureString = pressurePieces[1]
+                    try:
+                        pressureString = pressurePieces[1]
+                    except IndexError as er:
+                        print("pressure not readable")
 
             if len(pieces) > 3:
                 humPieces = pieces[3].decode().split("_")
                 if len(humPieces) > 0:
-                    humString = humPieces[1]
+                    try:
+                        humString = humPieces[1]
+                    except IndexError as er:
+                        print("humidity not readable")
 
             if len(pieces) > 4:
                 tempPieces = pieces[4].decode().split("_")
                 if len(tempPieces) > 0:
-                    tempString = tempPieces[1]
+                    try:
+                        tempString = tempPieces[1]
+                    except IndexError as er:
+                        print("temperature not readable")
 
             prevMoist2 = prevMoist1
             prevMoist1 = moist
@@ -99,31 +115,26 @@ while True:
             try:
                 moist = float(moistString)
             except ValueError as er:
-                print("moisture not readable")
                 moist = 0
 
             try:
                 lux = float(luxString)
             except ValueError as er:
-                print("lux not readable")
                 lux = 0
 
             try:
                 pressure = float(pressureString)
             except ValueError as er:
-                print("pressure not readable")
                 pressure = 0
 
             try:
                 hum = float(humString)
             except ValueError as er:
-                print("humidity not readable")
                 hum = 0
 
             try:
                 temp = float(tempString)
             except ValueError as er:
-                print("temperature not readable")
                 temp = 0
 
             if (moist-prevMoist2 >= 7 and moist-prevMoist2 <= 300 and watering == 0):
@@ -161,7 +172,7 @@ while True:
                         print(valDiff)
 
                         if(valDiff >= 14 and moist-prevMoist1 <= 5):
-                            print("BERÜHRT")
+                            print("BERUEHRT")
                             #turnServo()
                             #os.system("aplay /home/pi/mycroft-core/mycroft/res/snd/start_listening.wav")
                             #os.system("aplay /home/osboxes/mycroft-core/mycroft/res/snd/start_listening.wav")
