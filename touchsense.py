@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from websocket import create_connection
 uri = 'ws://localhost:8181/core'
@@ -12,14 +12,12 @@ message = '{"type": "mycroft.mic.listen", "data": {}}'
 #print("Received '%s'" % result)
 #ws.close()
 
-import serial,time,os,pymysql
+import serial,time,os,pymysql,sys
 from serial import SerialException
 
 db = pymysql.connect("localhost", "flowerbot", "mycroft", "sensordata")
 curs=db.cursor()
-insert_stmt = (
-  "INSERT INTO watering (moisture) " "VALUES (%s)"
-)
+insert_stmt = ("INSERT INTO watering (moisture) " "VALUES (%s)")
 
 z1baudrate = 57600
 z1port = '/dev/ttyACM0'  # set the correct port before run it
@@ -44,12 +42,6 @@ lux = 0
 pressure = 0
 hum = 0
 temp = 0
-
-os.system("amixer set Master 75%")
-
-#calling the servo
-def turnServo():
-    z1serial.write(b'aaaa\n')
 
 while True:
     size = z1serial.inWaiting()
@@ -141,52 +133,53 @@ while True:
                 watering = 1
                 with db:
                     curs.execute(insert_stmt, prevMoist2)
-                print("WATERING")
-
-            if(moist-prevMoist2 <= 5 and watering == 1):
-                waterDecay = waterDecay +1
-                time.sleep(2)
-                if(waterDecay >= 100):
-                    watering = 0
-                    print("WATERING OVER")
-            else:
-                waterDecay = 0
+                print("WATERING...")
+                time.sleep(300)
+                count = 0
+                averageValue = 0
+                totalValue = 0
 
             if len(pieces) > 5 and watering == 0:
                 touchPieces = pieces[5].decode().split("_")
                 if len(touchPieces) > 0:
-                    touchValueString = touchPieces[1]
-                    touchValue = float(touchValueString)
-                    if count >= 100:
-                        averageValue = totalValue/100
-                        totalValue = 0
-                        count = 0
-                        #print("  avg:")
-                        #print(averageValue)
-                    else:
-                        count = count +1
-                        totalValue= totalValue+touchValue
+                    try:
+                        touchValueString = touchPieces[1]
+                    except IndexError as er:
+                        touchValueString = 0
+                        print("touch not readable")
+                    if touchValueString != 0:
+                        touchValue = float(touchValueString)
+                        if count >= 100:
+                            averageValue = totalValue/100
+                            totalValue = 0
+                            count = 0
+                            #print("  avg:")
+                            #print(averageValue)
+                        else:
+                            count = count +1
+                            totalValue= totalValue+touchValue
 
-                    if(averageValue-touchValue >= 3):
-                        valDiff = valDiff + averageValue-touchValue
-                        print(valDiff)
+                        if(averageValue-touchValue >= 3):
+                            valDiff = valDiff + averageValue-touchValue
+                            sys.stdout.write
+                            #print(valDiff)
 
-                        if(valDiff >= 14 and moist-prevMoist1 <= 5):
-                            print("BERUEHRT")
-                            #turnServo()
-                            #os.system("aplay /home/pi/mycroft-core/mycroft/res/snd/start_listening.wav")
-                            #os.system("aplay /home/osboxes/mycroft-core/mycroft/res/snd/start_listening.wav")
-                            ws = create_connection(uri)
-                            result = ws.send(message)
-                            ws.close()
-                            totalValue=totalValue+valDiff
-                            valDiff= 0
+                            if(valDiff >= 14 and moist-prevMoist1 <= 5):
+                                print("BERUEHRT")
+                                ws = create_connection(uri)
+                                result = ws.send(message)
+                                ws.close()
+                                totalValue=totalValue+valDiff
+                                valDiff= 0
 
-                            time.sleep(2)
-                    else:
-                        valDiff = 0
+                                time.sleep(2)
+                        else:
+                            valDiff = 0
                 else:
                     print(0)
 
+    sys.stdout.flush()
     z1serial.flushInput()
     time.sleep(60.0 / 1000.0)
+
+
