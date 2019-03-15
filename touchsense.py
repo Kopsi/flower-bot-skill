@@ -26,8 +26,10 @@ z1serial = serial.Serial(port=z1port, baudrate=z1baudrate)
 z1serial.timeout = 2
 
 count = 0
+varCount = 0
 averageValue = 0
 totalValue = 0
+maxVariance = 0
 
 valDiff = 0
 
@@ -136,6 +138,7 @@ while True:
                 print("WATERING...")
                 time.sleep(300)
                 count = 0
+                varCount = 0
                 averageValue = 0
                 totalValue = 0
 
@@ -150,29 +153,31 @@ while True:
                     if touchValueString != 0:
                         touchValue = float(touchValueString)
                         if count >= 100:
-                            averageValue = totalValue/100
+                            averageValue = totalValue / 100
                             totalValue = 0
                             count = 0
-                            #print("  avg:")
-                            #print(averageValue)
                         else:
-                            count = count +1
-                            totalValue= totalValue+touchValue
+                            count = count + 1
+                            totalValue = totalValue + touchValue
 
-                        if(averageValue-touchValue >= 3):
-                            valDiff = valDiff + averageValue-touchValue
-                            sys.stdout.write
-                            #print(valDiff)
+                        if averageValue > 0 and varCount <= 100:
+                            if averageValue - touchValue > maxVariance:
+                                maxVariance = averageValue - touchValue
+                                print("maxVariance is:" + str(maxVariance))
+                            if averageValue - touchValue > 0:
+                                varCount = varCount + 1
 
-                            if(valDiff >= 14 and moist-prevMoist1 <= 5):
+                        if (varCount > 100 and averageValue - touchValue > maxVariance):
+                            valDiff = valDiff + averageValue - touchValue
+                            print(valDiff)
+
+                            if (valDiff >= maxVariance * 3 and moist - prevMoist1 <= 5):
                                 print("BERUEHRT")
-                                ws = create_connection(uri)
-                                result = ws.send(message)
-                                ws.close()
-                                totalValue=totalValue+valDiff
-                                valDiff= 0
+                                totalValue = totalValue + valDiff
+                                valDiff = 0
+                                averageValue = 0
+                                varCount = 0
 
-                                time.sleep(2)
                         else:
                             valDiff = 0
                 else:
