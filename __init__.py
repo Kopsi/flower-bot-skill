@@ -70,24 +70,25 @@ class FlowerBotSkill(MycroftSkill):
         if self.temperature < 10:
             self.speak_dialog("too.cold")
             self.comfortCounter += 1
-        else:
-            self.speak_dialog("feeling.good")
-        if self.comfortCounter > 2:
+
+        if self.comfortCounter >= 2:
             try:
                 z1serial.write(b'rrr\n')
             except Exception as e:
                 LOG.info(str(e))
-        elif self.comfortCounter > 1:
+        elif self.comfortCounter >= 1:
             try:
                 z1serial.write(b'bbb\n')
             except Exception as e:
                 LOG.info(str(e))
         else:
+            self.speak_dialog("feeling.good")
             try:
                 z1serial.write(b'ggg\n')
             except Exception as e:
                 LOG.info(str(e))
         LOG.info("COMFORTCOUNTER = " + str(self.comfortCounter))
+        LOG.info("water: " + str(self.water) + " lux: " + str(self.light) + " temperature: " + str(self.temperature))
         self.comfortCounter = 0
 
 
@@ -134,3 +135,6 @@ def updateData():
     sensorData = arduinodata.getCurrentSensorData()
     FlowerBotSkill.water = sensorData[0]
     FlowerBotSkill.light = sensorData[1]
+    FlowerBotSkill.airPressure = sensorData[2]
+    FlowerBotSkill.airMoisture = sensorData[3]
+    FlowerBotSkill.temperature = sensorData[4]

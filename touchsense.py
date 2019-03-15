@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from websocket import create_connection
 uri = 'ws://localhost:8181/core'
 #ws = create_connection(uri)
@@ -10,13 +12,12 @@ message = '{"type": "mycroft.mic.listen", "data": {}}'
 #print("Received '%s'" % result)
 #ws.close()
 
-import serial,time,os,pymysql
+import serial,time,os,pymysql,sys
+from serial import SerialException
 
 db = pymysql.connect("localhost", "flowerbot", "mycroft", "sensordata")
 curs=db.cursor()
-insert_stmt = (
-  "INSERT INTO watering (moisture) " "VALUES (%s)"
-)
+insert_stmt = ("INSERT INTO watering (moisture) " "VALUES (%s)")
 
 z1baudrate = 57600
 z1port = '/dev/ttyACM0'  # set the correct port before run it
@@ -42,12 +43,6 @@ pressure = 0
 hum = 0
 temp = 0
 
-os.system("amixer set Master 75%")
-
-#calling the servo
-def turnServo():
-    z1serial.write(b'aaaa\n')
-
 while True:
     size = z1serial.inWaiting()
     if(size):
@@ -63,32 +58,48 @@ while True:
             print("datastring incomplete")
 
         if dataString.startswith(" moist_"):
-            print(dataString)
+            #print(dataString)
             pieces = data.split()
             if len(pieces) > 0:
                 moistPieces = pieces[0].decode().split("_")
                 if len(moistPieces) > 0:
-                    moistString = moistPieces[1]
+                    try:
+                        moistString = moistPieces[1]
+                    except IndexError as er:
+                        print("moisture not readable")
+
 
             if len(pieces) > 1:
                 luxPieces = pieces[1].decode().split("_")
                 if len(luxPieces) > 0:
-                    luxString = luxPieces[1]
+                    try:
+                        luxString = luxPieces[1]
+                    except IndexError as er:
+                        print("lux not readable")
 
             if len(pieces) > 2:
                 pressurePieces = pieces[2].decode().split("_")
                 if len(pressurePieces) > 0:
-                    pressureString = pressurePieces[1]
+                    try:
+                        pressureString = pressurePieces[1]
+                    except IndexError as er:
+                        print("pressure not readable")
 
             if len(pieces) > 3:
                 humPieces = pieces[3].decode().split("_")
                 if len(humPieces) > 0:
-                    humString = humPieces[1]
+                    try:
+                        humString = humPieces[1]
+                    except IndexError as er:
+                        print("humidity not readable")
 
             if len(pieces) > 4:
                 tempPieces = pieces[4].decode().split("_")
                 if len(tempPieces) > 0:
-                    tempString = tempPieces[1]
+                    try:
+                        tempString = tempPieces[1]
+                    except IndexError as er:
+                        print("temperature not readable")
 
             prevMoist2 = prevMoist1
             prevMoist1 = moist
@@ -96,83 +107,79 @@ while True:
             try:
                 moist = float(moistString)
             except ValueError as er:
-                print("moisture not readable")
                 moist = 0
 
             try:
                 lux = float(luxString)
             except ValueError as er:
-                print("lux not readable")
                 lux = 0
 
             try:
                 pressure = float(pressureString)
             except ValueError as er:
-                print("pressure not readable")
                 pressure = 0
 
             try:
                 hum = float(humString)
             except ValueError as er:
-                print("humidity not readable")
                 hum = 0
 
             try:
                 temp = float(tempString)
             except ValueError as er:
-                print("temperature not readable")
                 temp = 0
 
             if (moist-prevMoist2 >= 7 and moist-prevMoist2 <= 300 and watering == 0):
                 watering = 1
                 with db:
                     curs.execute(insert_stmt, prevMoist2)
-                print("WATERING")
-
-            if(moist-prevMoist2 <= 5 and watering == 1):
-                waterDecay = waterDecay +1
-                time.sleep(2)
-                if(waterDecay >= 100):
-                    watering = 0
-                    print("WATERING OVER")
-            else:
-                waterDecay = 0
+                print("WATERING...")
+                time.sleep(300)
+                count = 0
+                averageValue = 0
+                totalValue = 0
 
             if len(pieces) > 5 and watering == 0:
                 touchPieces = pieces[5].decode().split("_")
                 if len(touchPieces) > 0:
-                    touchValueString = touchPieces[1]
-                    touchValue = float(touchValueString)
-                    if count >= 100:
-                        averageValue = totalValue/100
-                        totalValue = 0
-                        count = 0
-                        #print("  avg:")
-                        #print(averageValue)
-                    else:
-                        count = count +1
-                        totalValue= totalValue+touchValue
+                    try:
+                        touchValueString = touchPieces[1]
+                    except IndexError as er:
+                        touchValueString = 0
+                        print("touch not readable")
+                    if touchValueString != 0:
+                        touchValue = float(touchValueString)
+                        if count >= 100:
+                            averageValue = totalValue/100
+                            totalValue = 0
+                            count = 0
+                            #print("  avg:")
+                            #print(averageValue)
+                        else:
+                            count = count +1
+                            totalValue= totalValue+touchValue
 
-                    if(averageValue-touchValue >= 3):
-                        valDiff = valDiff + averageValue-touchValue
-                        print(valDiff)
+                        if(averageValue-touchValue >= 3):
+                            valDiff = valDiff + averageValue-touchValue
+                            sys.stdout.write
+                            #print(valDiff)
 
-                        if(valDiff >= 14 and moist-prevMoist1 <= 5):
-                            print("BERÜHRT")
-                            #turnServo()
-                            #os.system("aplay /home/pi/mycroft-core/mycroft/res/snd/start_listening.wav")
-                            #os.system("aplay /home/osboxes/mycroft-core/mycroft/res/snd/start_listening.wav")
-                            ws = create_connection(uri)
-                            result = ws.send(message)
-                            ws.close()
-                            totalValue=totalValue+valDiff
-                            valDiff= 0
+                            if(valDiff >= 14 and moist-prevMoist1 <= 5):
+                                print("BERUEHRT")
+                                ws = create_connection(uri)
+                                result = ws.send(message)
+                                ws.close()
+                                totalValue=totalValue+valDiff
+                                valDiff= 0
 
-                            time.sleep(2)
-                    else:
-                        valDiff = 0
+                                time.sleep(2)
+                        else:
+                            valDiff = 0
                 else:
                     print(0)
 
+    sys.stdout.flush()
     z1serial.flushInput()
     time.sleep(60.0 / 1000.0)
+
+

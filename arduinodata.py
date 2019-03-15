@@ -1,4 +1,5 @@
 import os,pty,serial,pymysql,time, datetime
+from serial import SerialException
 
 db = pymysql.connect("localhost", "flowerbot", "mycroft", "sensordata")
 curs=db.cursor()
@@ -68,19 +69,19 @@ def getCurrentSensorData():
                     try:
                         pressure = float(pressureString)
                     except ValueError as er:
-                        print("lux not readable")
+                        print("pressure not readable")
                         pressure = 0
 
                     try:
                         hum = float(humString)
                     except ValueError as er:
-                        print("lux not readable")
+                        print("humidity not readable")
                         hum = 0
 
                     try:
                         temp = float(tempString)
                     except ValueError as er:
-                        print("lux not readable")
+                        print("temperature not readable")
                         temp = 0
 
                     return (moist, lux, pressure, hum, temp)
