@@ -61,7 +61,7 @@ class FlowerBotSkill(MycroftSkill):
         if self.light < 50:
             self.speak_dialog("need.light")
             self.comfortCounter += 1
-        if self.light > 400:
+        if self.light > 800:
             self.speak_dialog("too.much.light")
             self.comfortCounter += 1
         if self.temperature > 30:
