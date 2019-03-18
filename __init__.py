@@ -116,6 +116,11 @@ class FlowerBotSkill(MycroftSkill):
     def handle_edible_intent(self, message):
         self.speak_dialog("edible")
 
+    @intent_handler(IntentBuilder("").require("About"))
+    def handle_need_water_intent(self, message):
+        self.speak_dialog("about")
+
+
     # The "stop" method defines what Mycroft does when told to stop during
     # the skill's execution. In this case, since the skill's functionality
     # is extremely simple, there is no need to override it.  If you DO
