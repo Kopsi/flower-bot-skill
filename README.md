@@ -1,15 +1,11 @@
-To submit your skill, replace this file with text from 
-https://rawgit.com/MycroftAI/mycroft-skills/master/meta_editor.html
-
-
-## Plant Bot
-Plant bot communication protocoll
+# BOTani
+BOTani communication protocoll
 
 ## Description 
-The Plant Bot skill transforms a Picroft and a plant into a "sentient" plant with aid of an Arduino, moisture,
-light, and temperature sensors. The Plant Bot responds to questions about generall well being and
-wether it needs anything. Furthermore it can act on it's own to remind the user, if anything is
-critically required for the plant to survive.
+The BOTani skill transforms a Picroft and a plant into a "sentient" plant with aid of an Arduino, moisture,
+light, and temperature sensors. The plant based bot responds to questions about generall well being and
+whether it needs anything. Furthermore it can act on it's own to remind the user, if anything is
+critically required for the plant to survive or if being watered or moved into an area with better lighting conditions.
 
 ## Examples 
 * "Do you need anything?"
