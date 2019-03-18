@@ -10,6 +10,7 @@
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
+import time, threading
 
 import logging
 logger = logging.getLogger(__name__)
@@ -36,6 +37,7 @@ class FlowerBotSkill(MycroftSkill):
     temperature = 0
     waterTime = 0
     comfortCounter = 0
+    ct=0
 
     # The constructor of the skill, which calls MycroftSkill's constructor
     def __init__(self):
@@ -43,7 +45,7 @@ class FlowerBotSkill(MycroftSkill):
         # Initialize working variables used within the skill.
         sensorData = arduinodata.getCurrentSensorData()
 
-#TODO: values need to be adjusted
+#TODO: values might need to be readjusted
     @intent_handler(IntentBuilder("").require("Flower"))
     def handle_flower_intent(self, message):
 
@@ -92,6 +94,15 @@ class FlowerBotSkill(MycroftSkill):
         self.comfortCounter = 0
 
 
+    # def handle_watered(self):
+    #     updateData()
+    #     logger.info(self.waterTime)
+    #     if(self.waterTime==0&self.ct==0):
+    #         self.speak_dialog("received.water")
+    #         self.ct+=1
+    #     else:
+    #         self.ct=0
+    #     threading.Timer(10, handle_watered).start()
 
     @intent_handler(IntentBuilder("").require("Water.Check"))
     def handle_water_check_intent(self, message):
