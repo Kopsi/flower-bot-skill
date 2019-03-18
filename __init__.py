@@ -37,7 +37,7 @@ class FlowerBotSkill(MycroftSkill):
     temperature = 0
     waterTime = 0
     comfortCounter = 0
-    ct = 0
+    justWatered = False
 
     # The constructor of the skill, which calls MycroftSkill's constructor
     def __init__(self):
@@ -97,11 +97,11 @@ class FlowerBotSkill(MycroftSkill):
     # def handle_watered(self):
     #     updateData()
     #     logger.info(self.waterTime)
-    #     if(self.waterTime==0&self.ct==0):
+    #     if(self.waterTime==0&self.justWatered==False):
     #         self.speak_dialog("received.water")
-    #         self.ct+=1
-    #     else:
-    #         self.ct=0
+    #         self.justWatered = True
+    #     elif(self.waterTime>0&justWatered==True):
+    #         self.justWatared = False
     #     threading.Timer(10, handle_watered).start()
 
     @intent_handler(IntentBuilder("").require("Water.Check"))
