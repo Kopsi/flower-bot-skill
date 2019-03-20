@@ -6,13 +6,14 @@ uri = 'ws://localhost:8181/core'
 #print("Sending to " + uri + "...")
 
 message = '{"type": "mycroft.mic.listen", "data": {}}'
+message2 = '{"type": "speak", "data": {"utterance": "thanks for the water", "lang": "en-us"}}'
 #result = ws.send(message)
 #print("Receiving..." )
 #result = ws.recv()
 #print("Received '%s'" % result)
 #ws.close()
 
-import serial,time,os,pymysql,sys
+import serial,time,os,pymysql,sys, datetime
 from serial import SerialException
 
 db = pymysql.connect("localhost", "flowerbot", "mycroft", "sensordata")
@@ -27,9 +28,11 @@ z1serial.timeout = 2
 
 count = 0
 varCount = 0
+maxVariance = 0
 averageValue = 0
 totalValue = 0
-maxVariance = 0
+calibDone = 0
+autoCalib = 1
 
 valDiff = 0
 
@@ -44,6 +47,8 @@ lux = 0
 pressure = 0
 hum = 0
 temp = 0
+
+print("Script started!")
 
 while True:
     size = z1serial.inWaiting()
@@ -136,9 +141,11 @@ while True:
                 with db:
                     curs.execute(insert_stmt, prevMoist2)
                 print("WATERING...")
+                ws = create_connection(uri)
+                result = ws.send(message2)
+                ws.close()
                 time.sleep(300)
                 count = 0
-                varCount = 0
                 averageValue = 0
                 totalValue = 0
 
@@ -152,6 +159,7 @@ while True:
                         print("touch not readable")
                     if touchValueString != 0:
                         touchValue = float(touchValueString)
+                        now = datetime.datetime.now()
                         if count >= 100:
                             averageValue = totalValue / 100
                             totalValue = 0
@@ -163,28 +171,45 @@ while True:
                         if averageValue > 0 and varCount <= 100:
                             if averageValue - touchValue > maxVariance:
                                 maxVariance = averageValue - touchValue
-                                print("maxVariance is:" + str(maxVariance))
-                            if averageValue - touchValue > 0:
-                                varCount = varCount + 1
+                                print("maxVar: " + str(maxVariance))
+                            varCount = varCount + 1
+
+                        if(varCount > 100 and calibDone == 0):
+                            print("calibration done, maxVariance= " + str(maxVariance))
+                            calibDone = 1
 
                         if (varCount > 100 and averageValue - touchValue > maxVariance):
                             valDiff = valDiff + averageValue - touchValue
                             print(valDiff)
 
-                            if (valDiff >= maxVariance * 3 and moist - prevMoist1 <= 5):
-                                print("BERUEHRT")
+                            if (valDiff > maxVariance * 2.5 and moist - prevMoist1 <= 5):
+                                print(now.strftime("%d.%m %H:%M") + " BERUEHRT")
+                                ws = create_connection(uri)
+                                result = ws.send(message)
+                                ws.close()
                                 totalValue = totalValue + valDiff
                                 valDiff = 0
-                                averageValue = 0
-                                varCount = 0
 
+                                time.sleep(2)
                         else:
                             valDiff = 0
+
+                        if(now.minute%10) == 0 and autoCalib == 0:
+                            print(now.strftime("%d.%m %H:%M") + " auto calibration")
+                            totalValue = 0
+                            count = 0
+                            valDiff = 0
+                            varCount = 0
+                            calibDone = 0
+                            autoCalib = 1
+                        elif (now.minute%10) != 0:
+                            autoCalib = 0
                 else:
                     print(0)
 
     sys.stdout.flush()
     z1serial.flushInput()
     time.sleep(60.0 / 1000.0)
+
 
 
