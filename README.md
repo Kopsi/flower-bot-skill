@@ -46,10 +46,14 @@ critically required for the plant to survive or if it is getting watered or move
 
 ## Core Version:
 TBD
-
+## Final Product
+![Image](https://github.com/Kopsi/flower-bot-skill/blob/master/Images/IMG_20190319_132504_Bokeh.jpg)
 ## STL Files
 https://www.thingiverse.com/thing:3507119
-This will be further updated to more easily download the unique parts.
+
+Check out the STL folder or preview the parts on Thingiverse.
+
+Alternatively you can copy and modify them at Tinkercad (Link will follow later).
 
 ## Credits 
 David Fraas
