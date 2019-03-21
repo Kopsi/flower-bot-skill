@@ -47,6 +47,10 @@ critically required for the plant to survive or if it is getting watered or move
 ## Core Version:
 TBD
 
+## STL Files
+https://www.thingiverse.com/thing:3507119
+This will be further updated to more easily download the unique parts.
+
 ## Credits 
 David Fraas
 Alexander Stahl
