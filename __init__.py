@@ -94,16 +94,6 @@ class FlowerBotSkill(MycroftSkill):
         self.comfortCounter = 0
 
 
-    # def handle_watered(self):
-    #     updateData()
-    #     logger.info(self.waterTime)
-    #     if(self.waterTime==0&self.justWatered==False):
-    #         self.speak_dialog("received.water")
-    #         self.justWatered = True
-    #     elif(self.waterTime>0&justWatered==True):
-    #         self.justWatared = False
-    #     threading.Timer(10, handle_watered).start()
-
     @intent_handler(IntentBuilder("").require("Water.Check"))
     def handle_water_check_intent(self, message):
         updateData()
